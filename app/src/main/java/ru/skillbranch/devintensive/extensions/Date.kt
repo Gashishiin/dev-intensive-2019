@@ -29,7 +29,8 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND) : Date {
 }
 
 
-fun Date.humanizeDiff(date: Date = Date()): String {
+fun Date.humanizeDiff(): String {
+    val date = this
     val diff = (Date().time - date.time)/1000
     val days = diff/60/60/24
     return when(diff) {
