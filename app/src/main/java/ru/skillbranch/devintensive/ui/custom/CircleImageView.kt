@@ -78,7 +78,7 @@ class CircleImageView @JvmOverloads constructor(
 
             this.text = text
             bitmap = image
-            //setImageBitmap(bitmap)
+            setImageBitmap(bitmap)
             invalidate()
         }
     }
