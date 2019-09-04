@@ -1,7 +1,10 @@
 package ru.skillbranch.devintensive.models.data
 
+import android.util.Log
+import androidx.annotation.VisibleForTesting
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
+import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
@@ -12,19 +15,22 @@ data class Chat(
     var messages: MutableList<BaseMessage> = mutableListOf(),
     var isArchived: Boolean = false
 ) {
-    fun unreadableMessageCount():Int {
-        //TODO
-        return 0
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun unreadableMessageCount(): Int {
+        val unreadMessageCount = messages.count{!it.isReaded}
+        Log.d("M_Chat","unreadableMessageCount ${unreadMessageCount}");
+        return unreadMessageCount
     }
 
-    private fun lastMessageDate() : Date? {
-        //TODO
-        return Date()
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun lastMessageDate(): Date? {
+        return messages.maxBy { it.date }?.date
     }
 
-    private fun lastMessageShort(): Pair<String, String> {
-        //TODO
-        return "Сообщений еще нет" to "John_Doe"
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun lastMessageShort(): Pair<String, String?> = when(val lastMessage = messages.lastOrNull()){
+        is TextMessage -> (lastMessage.text ?: "") to lastMessage.from.firstName
+        else -> "${lastMessage?.from} отправил фото" to lastMessage?.from?.firstName
     }
 
     private fun isSingle(): Boolean = members.size == 1
