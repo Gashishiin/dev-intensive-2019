@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.annotation.VisibleForTesting
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
+import ru.skillbranch.devintensive.models.ImageMessage
 import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
@@ -30,7 +31,8 @@ data class Chat(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageShort(): Pair<String, String?> = when(val lastMessage = messages.lastOrNull()){
         is TextMessage -> (lastMessage.text ?: "") to lastMessage.from.firstName
-        else -> "${lastMessage?.from} отправил фото" to lastMessage?.from?.firstName
+        is ImageMessage -> "${lastMessage.from} отправил фото" to lastMessage.from.firstName
+        else -> "Сообщений еще нет" to null
     }
 
     private fun isSingle(): Boolean = members.size == 1

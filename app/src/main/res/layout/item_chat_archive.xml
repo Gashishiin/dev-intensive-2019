@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_size"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:padding="@dimen/spacing_normal_16"
+        android:background="@android:color/white">
+    <ImageView
+            android:id="@+id/iv_avatar_archive"
+            android:layout_width="@dimen/btn_round_size_40"
+            android:layout_height="@dimen/btn_round_size_40"
+            android:src="@drawable/ic_archive_black_24dp"
+            android:layout_marginRight="@dimen/spacing_normal_16"
+            android:background="@drawable/btn_round_bg"
+            android:layout_alignParentLeft="true"/>
+
+    <TextView
+            android:id="@+id/tv_archive_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacing_normal_16"
+            android:layout_toRightOf="@id/iv_avatar_archive"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/color_primary"
+            android:textSize="14sp"
+            android:text="@string/archive_item_title"
+            android:maxLines="1"/>
+
+    <TextView
+            android:id="@+id/tv_message_author_archive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_archive_title"
+            android:layout_marginRight="@dimen/spacing_tiny_4"
+            android:layout_toRightOf="@id/iv_avatar_archive"
+            android:textColor="@color/color_primary"
+            android:textSize="14sp"
+            tools:text="John_doe"
+            tools:visibility="visible"/>
+
+    <TextView
+            android:id="@+id/tv_date_archive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_gray_dark"
+            android:textSize="10sp"
+            tools:text="18:00" />
+
+    <TextView
+            android:id="@+id/tv_message_archive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_archive_title"
+            android:layout_marginRight="@dimen/spacing_tiny_4"
+            android:layout_toRightOf="@id/tv_message_author_archive"
+            android:textColor="@color/color_gray_dark"
+            android:textSize="14sp"
+            tools:text="Cообщение"
+            tools:visibility="visible"/>
+
+
+    <TextView
+            android:id="@+id/tv_counter_archive"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/counter_size"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_counter"
+            android:gravity="center"
+            android:minWidth="@dimen/counter_size"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            tools:text="11" />
+
+
+
+</RelativeLayout>

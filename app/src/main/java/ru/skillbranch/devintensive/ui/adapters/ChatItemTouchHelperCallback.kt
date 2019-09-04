@@ -65,13 +65,16 @@ class ChatItemTouchHelperCallback(
         if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             val itemView = viewHolder.itemView
             drawBackground(canvas, itemView, dX)
-            drawIcon(canvas, itemView, dX)
+            drawIcon(canvas, itemView, dX, viewHolder is ChatAdapter.ArchiveViewHolder)
         }
         super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
-    private fun drawIcon(canvas: Canvas, itemView: View, dX: Float) {
-        val icon = itemView.resources.getDrawable(R.drawable.ic_archive_black_24dp, itemView.context.theme)
+    private fun drawIcon(canvas: Canvas, itemView: View, dX: Float, isArchive: Boolean) {
+        val icon = if(isArchive)
+            itemView.resources.getDrawable(R.drawable.ic_unarchive_black_24dp, itemView.context.theme)
+        else
+            itemView.resources.getDrawable(R.drawable.ic_archive_black_24dp, itemView.context.theme)
         val iconSize = itemView.resources.getDimensionPixelSize(R.dimen.icon_size)
         val space = itemView.resources.getDimensionPixelSize(R.dimen.spacing_normal_16)
 
