@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_archive.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
+import ru.skillbranch.devintensive.ui.main.MainActivity
 import ru.skillbranch.devintensive.viewmodels.ArchiveViewModel
 
 class ArchiveActivity : AppCompatActivity() {
@@ -45,9 +46,10 @@ class ArchiveActivity : AppCompatActivity() {
     private fun initViews() {
         chatAdapter = ChatAdapter{
         }
-        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        val divider =
+            MainActivity().CustomDividerItemDecoration(this, DividerItemDecoration.VERTICAL)
 
-        val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {
+        val touchCallback = ChatItemTouchHelperCallback(chatAdapter, true) {
             val chatId = it.id
             viewModel.restoreFromArchive(chatId)
         }

@@ -12,6 +12,7 @@ import ru.skillbranch.devintensive.models.data.ChatItem
 
 class ChatItemTouchHelperCallback(
     val adapter: ChatAdapter,
+    val isArchive: Boolean,
     val swipeListener: (ChatItem) -> Unit
 ) : ItemTouchHelper.Callback() {
     private val bgRect = RectF()
@@ -65,12 +66,12 @@ class ChatItemTouchHelperCallback(
         if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             val itemView = viewHolder.itemView
             drawBackground(canvas, itemView, dX)
-            drawIcon(canvas, itemView, dX, viewHolder is ChatAdapter.ArchiveViewHolder)
+            drawIcon(canvas, itemView, dX)
         }
         super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
-    private fun drawIcon(canvas: Canvas, itemView: View, dX: Float, isArchive: Boolean) {
+    private fun drawIcon(canvas: Canvas, itemView: View, dX: Float) {
         val icon = if(isArchive)
             itemView.resources.getDrawable(R.drawable.ic_unarchive_black_24dp, itemView.context.theme)
         else

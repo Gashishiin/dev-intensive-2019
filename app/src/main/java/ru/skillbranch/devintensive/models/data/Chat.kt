@@ -54,7 +54,6 @@ data class Chat(
                 id,
                 null,
                 "",
-
                 title,
                 lastMessageShort().first,
                 unreadableMessageCount(),
