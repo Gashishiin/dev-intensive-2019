@@ -1,7 +1,7 @@
 package ru.skillbranch.devintensive.ui.adapters
 
 import android.content.Intent
-import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +27,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
     }
 
     var items: List<ChatItem> = listOf()
+
 
     override fun getItemViewType(position: Int): Int = when (items[position].chatType) {
         ChatType.ARCHIVE -> ARCHIVE_TYPE
@@ -97,15 +98,17 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
 
     inner class SingleViewHolder(convertView: View) : ChatItemViewHolder(convertView),
         ItemTouchViewHolder {
+
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            //itemView.setBackgroundColor(itemView.context.theme.resolveAttribute(R.attr.colorBackgroundFloating))
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            //itemView.setBackgroundColor(R.style.AppTheme.)
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
+            Log.d("M_ChatAdapter","Current color ${(itemView.background as ColorDrawable).color}");
             if (item.avatar == null) {
                 Glide.with(itemView)
                     .clear(iv_avatar_single)
@@ -139,11 +142,11 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
     inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView),
         ItemTouchViewHolder {
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            //itemView.setBackgroundColor(R.attr.colorBackgroundFloating)
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            //itemView.setBackgroundColor(R.attr.colorBackgroundFloating)
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
@@ -172,7 +175,15 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
         }
     }
 
-    inner class ArchiveViewHolder(convertView: View) : ChatItemViewHolder(convertView) {
+    inner class ArchiveViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
+        override fun onItemSelected() {
+            //itemView.setBackgroundColor(R.attr.colorBackgroundFloating)
+        }
+
+        override fun onItemCleared() {
+            //itemView.setBackgroundColor(R.attr.colorBackgroundFloating)
+        }
+
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
             with(tv_date_archive) {
                 visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
@@ -191,8 +202,9 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
                 val intent = Intent(it.context, ArchiveActivity::class.java)
                 it.context.startActivity(intent)
             }
-
         }
+
+
 
     }
 

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val searchItem = menu?.findItem(R.id.action_search)
         val searchView = searchItem?.actionView as SearchView
         searchView.queryHint = "Введите название чата"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.handleSearchQuery(query)
                 return true
@@ -64,16 +64,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
 
-        chatAdapter = ChatAdapter{
+        chatAdapter = ChatAdapter {
             Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
         }
         val divider = CustomDividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter, false) {
             val chatId = it.id
             viewModel.addToArchive(chatId)
-            Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
-                .setAction("Отмена"){viewModel.restoreFromArchive(chatId)}
-                .show()
+            val snackbar = Snackbar.make(
+                rv_chat_list,
+                "Вы точно хотите добавить ${it.title} в архив?",
+                Snackbar.LENGTH_LONG
+            )
+            with(snackbar) {
+                setAction("Отмена") { viewModel.restoreFromArchive(chatId) }
+                view.setBackgroundColor(R.attr.colorPrimary)
+                show()
+            }
         }
 
         val touchHelper = ItemTouchHelper(touchCallback)
@@ -81,11 +88,11 @@ class MainActivity : AppCompatActivity() {
 
         with(rv_chat_list) {
             adapter = chatAdapter
-            layoutManager =  LinearLayoutManager(this@MainActivity)
+            layoutManager = LinearLayoutManager(this@MainActivity)
             addItemDecoration(divider)
         }
 
-        fab.setOnClickListener{
+        fab.setOnClickListener {
             val intent = Intent(this, GroupActivity::class.java)
             startActivity(intent)
         }
@@ -97,8 +104,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inner class CustomDividerItemDecoration(context: Context, orientation: Int)
-        : DividerItemDecoration(context, orientation) {
+    inner class CustomDividerItemDecoration(context: Context, orientation: Int) :
+        DividerItemDecoration(context, orientation) {
         private var divider: Drawable? = null
 
         init {

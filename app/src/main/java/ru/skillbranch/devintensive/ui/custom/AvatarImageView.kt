@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.util.AttributeSet
+import ru.skillbranch.devintensive.utils.Utils
 
 class AvatarImageView @JvmOverloads constructor(
     context: Context,
@@ -36,6 +37,9 @@ class AvatarImageView @JvmOverloads constructor(
 
 
     fun setInitials(initials: String) {
-        generateAvatar(initials, 48, context.theme)
+        val index = initials.hashCode() % bgColors.size
+
+        generateAvatar(initials, Utils.convertDpToPx(context, 12), context.theme, bgColors[index])
+
     }
 }

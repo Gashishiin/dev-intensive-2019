@@ -5,7 +5,6 @@ import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
@@ -22,7 +21,7 @@ open class CircleImageView @JvmOverloads constructor(
     }
 
     private var borderColor = DEFAULT_BORDER_COLOR
-    private var borderWidth = Utils.convertDpToPx(context, 2)
+    private var borderWidth = 0
     private var text: String? = null
     private var bitmap: Bitmap? = null
 
@@ -68,13 +67,13 @@ open class CircleImageView @JvmOverloads constructor(
         canvas.drawBitmap(bitmap, 0F, 0F, null)
     }
 
-    fun generateAvatar(text: String?, sizeSp: Int, theme: Resources.Theme){
+    fun generateAvatar(text: String?, sizeSp: Int, theme: Resources.Theme, colorHex: String){
         if (bitmap == null || text != this.text){
             val image =
                 if (text == null) {
-                    generateDefAvatar(theme)
+                    generateDefAvatar(theme, colorHex)
                 }
-                else generateLetterAvatar(text, sizeSp, theme)
+                else generateLetterAvatar(text, sizeSp, theme, colorHex)
 
             this.text = text
             bitmap = image
@@ -83,8 +82,8 @@ open class CircleImageView @JvmOverloads constructor(
         }
     }
 
-    private fun generateLetterAvatar(text: String, sizeSp: Int, theme: Resources.Theme): Bitmap {
-        val image = generateDefAvatar(theme)
+    private fun generateLetterAvatar(text: String, sizeSp: Int, theme: Resources.Theme, colorHex: String): Bitmap {
+        val image = generateDefAvatar(theme, colorHex)
 
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.textSize = sizeSp.toFloat()
@@ -104,15 +103,12 @@ open class CircleImageView @JvmOverloads constructor(
         return image
     }
 
-    private fun generateDefAvatar(theme: Resources.Theme): Bitmap {
+    private fun generateDefAvatar(theme: Resources.Theme, colorHex: String): Bitmap {
         val image = Bitmap.createBitmap(layoutParams.height, layoutParams.height, Bitmap.Config.ARGB_8888)
-        val color = TypedValue()
-        theme.resolveAttribute(R.attr.colorAccent, color, true)
-
-
+        val color = Color.parseColor(colorHex)
         val canvas = Canvas(image)
-        canvas.drawColor(color.data)
-
+        //canvas.drawColor(color.data)
+        canvas.drawColor(color)
         return image
     }
 

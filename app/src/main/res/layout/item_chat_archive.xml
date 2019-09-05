@@ -4,7 +4,7 @@
         android:layout_height="@dimen/item_size"
         xmlns:tools="http://schemas.android.com/tools"
         android:padding="@dimen/spacing_normal_16"
-        android:background="@android:color/white">
+        android:background="?attr/colorBackgroundFloating">
     <ImageView
             android:id="@+id/iv_avatar_archive"
             android:layout_width="@dimen/avatar_item_size"
@@ -22,7 +22,7 @@
             android:layout_marginRight="@dimen/spacing_normal_16"
             android:layout_toRightOf="@id/iv_avatar_archive"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorPrimary"
             android:textSize="14sp"
             android:text="@string/archive_item_title"
             android:maxLines="1"/>
@@ -34,7 +34,7 @@
             android:layout_below="@id/tv_archive_title"
             android:layout_marginRight="@dimen/spacing_tiny_4"
             android:layout_toRightOf="@id/iv_avatar_archive"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorPrimary"
             android:textSize="14sp"
             tools:text="John_doe"
             tools:visibility="visible"/>
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorSecondary"
             android:textSize="10sp"
             tools:text="18:00" />
 
@@ -56,7 +56,7 @@
             android:layout_below="@id/tv_archive_title"
             android:layout_marginRight="@dimen/spacing_tiny_4"
             android:layout_toRightOf="@id/tv_message_author_archive"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorSecondary"
             android:textSize="14sp"
             tools:text="Cообщение"
             tools:visibility="visible"/>

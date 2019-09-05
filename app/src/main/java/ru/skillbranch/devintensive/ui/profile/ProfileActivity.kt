@@ -70,7 +70,8 @@ class ProfileActivity : AppCompatActivity() {
         iv_avatar.generateAvatar(
             Utils.toInitials(profile.firstName, profile.lastName),
             Utils.convertSpToPx(this, 48),
-            theme
+            theme,
+            "#4DF129"
         )
     }
 
