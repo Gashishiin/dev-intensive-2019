@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.ui.group
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -38,7 +39,7 @@ class GroupActivity : AppCompatActivity() {
         val searchItem = menu?.findItem(R.id.action_search)
         val searchView = searchItem?.actionView as SearchView
         searchView.queryHint = "Введите имя пользователя"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.handleSearchQuery(query)
                 return true
@@ -58,7 +59,7 @@ class GroupActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return if(item?.itemId == android.R.id.home){
+        return if (item?.itemId == android.R.id.home) {
             finish()
             overridePendingTransition(R.anim.idle, R.anim.bottom_down)
             true
@@ -70,13 +71,13 @@ class GroupActivity : AppCompatActivity() {
     private fun initViews() {
         usersAdapter = UserAdapter { viewModel.handleSelectedItem(it.id) }
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        with(rv_user_list){
+        with(rv_user_list) {
             adapter = usersAdapter
             layoutManager = LinearLayoutManager(this@GroupActivity)
             addItemDecoration(divider)
         }
 
-        fab.setOnClickListener{
+        fab.setOnClickListener {
             viewModel.handleCreatorGroup()
             finish()
             overridePendingTransition(R.anim.idle, R.anim.bottom_down)
@@ -93,36 +94,38 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private fun toggleFab(isShow: Boolean) {
-        if(isShow) fab.show()
+        if (isShow) fab.show()
         else fab.hide()
     }
 
     private fun addChipToGroup(user: UserItem) {
-        val chip = Chip(this).apply{
+        val chip = Chip(this).apply {
             text = user.fullName
             chipIcon = resources.getDrawable(R.drawable.avatar_default, theme)
             isCloseIconVisible = true
             tag = user.id
             isClickable = true
             closeIconTint = ColorStateList.valueOf(Color.WHITE)
-            chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_primary_light))
+            val chipBgColor = TypedValue()
+            theme.resolveAttribute(R.attr.colorToolBar, chipBgColor, true)
+            chipBackgroundColor = ColorStateList.valueOf(chipBgColor.data)
             setTextColor(Color.WHITE)
         }
 
-        chip.setOnCloseIconClickListener{viewModel.handleRemoveChip(it.tag.toString())}
+        chip.setOnCloseIconClickListener { viewModel.handleRemoveChip(it.tag.toString()) }
         chip_group.addView(chip)
 
     }
 
     private fun updateChips(listUsers: List<UserItem>) {
-        chip_group.visibility = if(listUsers.isEmpty()) View.GONE else View.VISIBLE
+        chip_group.visibility = if (listUsers.isEmpty()) View.GONE else View.VISIBLE
         val users = listUsers.associate { user -> user.id to user }.toMutableMap()
         val views = chip_group.children.associate { view -> view.tag to view }
-        for((k,v) in views) {
-            if(!users.containsKey(k)) chip_group.removeView(v)
+        for ((k, v) in views) {
+            if (!users.containsKey(k)) chip_group.removeView(v)
             else users.remove(k)
         }
 
-        users.forEach{(_,v) -> addChipToGroup(v)}
+        users.forEach { (_, v) -> addChipToGroup(v) }
     }
 }

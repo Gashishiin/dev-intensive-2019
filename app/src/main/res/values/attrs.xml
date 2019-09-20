@@ -11,6 +11,9 @@
     <attr name="colorIconOnline" format="reference"/>
     <attr name="colorBgArchive" format="reference"/>
     <attr name="colorToolBar" format="reference"/>
+    <attr name="colorSnackbarText" format="reference"/>
+    <attr name="colorSelected" format="reference"/>
+
     <declare-styleable name="CircleImageView">
         <attr name="cv_borderColor" format="color"/>
         <attr name="cv_borderWidth" format="dimension"/>

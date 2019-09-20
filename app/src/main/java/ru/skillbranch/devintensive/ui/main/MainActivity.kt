@@ -5,7 +5,9 @@ import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
@@ -78,7 +80,12 @@ class MainActivity : AppCompatActivity() {
             )
             with(snackbar) {
                 setAction("Отмена") { viewModel.restoreFromArchive(chatId) }
-                view.setBackgroundColor(R.attr.colorPrimary)
+                val color = TypedValue()
+                theme.resolveAttribute(R.attr.colorPrimary, color, true)
+                view.setBackgroundColor(color.data)
+                val textColor = TypedValue()
+                theme.resolveAttribute(R.attr.colorSnackbarText, textColor, true)
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(textColor.data)
                 show()
             }
         }

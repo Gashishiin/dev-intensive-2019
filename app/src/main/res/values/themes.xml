@@ -17,6 +17,8 @@
         <item name="colorBgArchive">@color/color_primary_dark</item>
         <item name="colorIconOnline">@color/color_green</item>
         <item name="colorToolBar">@color/color_primary</item>
+        <item name="colorSnackbarText">@android:color/white</item>
+        <item name="colorSelected">@color/color_primary</item>
 
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransitions</item>

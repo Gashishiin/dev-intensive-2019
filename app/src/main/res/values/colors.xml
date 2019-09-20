@@ -11,6 +11,7 @@
     <color name="color_gray_light">#ECECEC</color>
     <color name="color_background_dark">#1D1D1D</color>
     <color name="color_toolbar_dark">#272727</color>
+    <color name="color_snackbar_night">#121212</color>
 
     <color name="color_divider_dark">#1F000000</color>
     <color name="color_divider_light">#1FFFFFFF</color>

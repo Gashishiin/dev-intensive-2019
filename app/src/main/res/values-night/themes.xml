@@ -16,7 +16,8 @@
         <item name="colorBgArchive">@color/color_accent_night</item>
         <item name="colorIconOnline">@color/color_accent_night</item>
         <item name="colorToolBar">@color/color_toolbar_dark</item>
-
+        <item name="colorSnackbarText">@color/color_snackbar_night</item>
+        <item name="colorSelected">@color/color_accent_night</item>
 
 
     </style>
